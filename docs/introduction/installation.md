@@ -1,14 +1,21 @@
-# Installation
+# Deno import
+
+```ts
+import {
+  IsString,
+  validate,
+} from "https://raw.githubusercontent.com/tnifey/class-validator/master/mod.ts";
+```
+
+# Installation in NodeJS
+
+To use in node use [original version of `class-validator`](https://github.com/typestack/class-validator)
 
 To install the stable version:
 
 ```
-npm install --save class-validator
+npm i class-validator reflect-metadata
 ```
-
-### Usage in the browser
-
-If you want to use `class-validator` in the browser and you use Webpack then just import it into your project and Webpack will take care of the rest.
 
 ### Next version
 

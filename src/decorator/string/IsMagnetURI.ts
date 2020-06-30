@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_MAGNET_URI = "isMagnetURI";
 
@@ -9,25 +9,27 @@ export const IS_MAGNET_URI = "isMagnetURI";
  * If given value is not a string, then it returns false.
  */
 export function isMagnetURI(value: unknown): boolean {
-    return typeof value === "string" && validator.isMagnetURI(value);
+  return typeof value === "string" && validator.isMagnetURI(value);
 }
 
 /**
  * Check if the string is a magnet uri format.
  * If given value is not a string, then it returns false.
  */
-export function IsMagnetURI(validationOptions?: ValidationOptions): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_MAGNET_URI,
-            validator: {
-                validate: (value, args): boolean => isMagnetURI(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be magnet uri format",
-                    validationOptions
-                )
-            }
-        },
-        validationOptions
-    );
+export function IsMagnetURI(
+  validationOptions?: ValidationOptions,
+): PropertyDecorator {
+  return ValidateBy(
+    {
+      name: IS_MAGNET_URI,
+      validator: {
+        validate: (value, args) => isMagnetURI(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be magnet uri format",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

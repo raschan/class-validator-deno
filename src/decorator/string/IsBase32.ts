@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_BASE32 = "isBase32";
 
@@ -9,25 +9,27 @@ export const IS_BASE32 = "isBase32";
  * If given value is not a string, then it returns false.
  */
 export function isBase32(value: unknown): boolean {
-    return typeof value === "string" && validator.isBase32(value);
+  return typeof value === "string" && validator.isBase32(value);
 }
 
 /**
  * Check if a string is base32 encoded.
  * If given value is not a string, then it returns false.
  */
-export function IsBase32(validationOptions?: ValidationOptions): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_BASE32,
-            validator: {
-                validate: (value, args): boolean => isBase32(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be base32 encoded",
-                    validationOptions
-                )
-            }
-        },
-        validationOptions
-    );
+export function IsBase32(
+  validationOptions?: ValidationOptions,
+): PropertyDecorator {
+  return ValidateBy(
+    {
+      name: IS_BASE32,
+      validator: {
+        validate: (value, args) => isBase32(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be base32 encoded",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

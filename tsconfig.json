@@ -1,25 +1,6 @@
 {
-    "version": "2.0.3",
-    "compilerOptions": {
-        "outDir": "dist/esm5",
-        "target": "es5",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "sourceMap": true,
-        "stripInternal": true,
-        "noImplicitAny": true,
-        "declaration": true,
-        "declarationMap": true,
-        "declarationDir": "dist/types",
-        "lib": ["es6"],
-        "resolveJsonModule": true,
-        "importHelpers": true,
-    },
-    "exclude": [
-        "build",
-        "dist",
-        "node_modules"
-    ]
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  }
 }
