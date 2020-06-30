@@ -9,10 +9,10 @@ export const IS_MILITARY_TIME = "isMilitaryTime";
  * If the given value does not match the pattern HH:MM, then it returns false.
  */
 export function isMilitaryTime(value: unknown): boolean {
-  const militaryTimeRegex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
-  return (
-    typeof value === "string" && validator.matches(value, militaryTimeRegex)
-  );
+    const militaryTimeRegex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
+    return (
+        typeof value === "string" && validator.matches(value, militaryTimeRegex)
+    );
 }
 
 /**
@@ -20,21 +20,21 @@ export function isMilitaryTime(value: unknown): boolean {
  * If the given value does not match the pattern HH:MM, then it returns false.
  */
 export function IsMilitaryTime(
-  validationOptions?: ValidationOptions,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: IS_MILITARY_TIME,
-      validator: {
-        validate: (value, args) => isMilitaryTime(value),
-        defaultMessage: buildMessage(
-          (eachPrefix) =>
-            eachPrefix +
-            "$property must be a valid representation of military time in the format HH:MM",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: IS_MILITARY_TIME,
+            validator: {
+                validate: (value, args) => isMilitaryTime(value),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property must be a valid representation of military time in the format HH:MM",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

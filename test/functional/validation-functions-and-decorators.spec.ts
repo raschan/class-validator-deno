@@ -264,9 +264,8 @@ export function checkReturnedError(
   Promise.all(promises).then(() => done(), (err) => done(err));
 }
 
-// -------------------------------------------------------------------------
-// Setup
-// -------------------------------------------------------------------------
+    return Promise.all(promises);
+}
 
 const validator = new Validator();
 

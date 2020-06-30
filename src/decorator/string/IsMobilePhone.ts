@@ -17,16 +17,16 @@ export const IS_MOBILE_PHONE = "isMobilePhone";
  * If given value is not a string, then it returns false.
  */
 export function isMobilePhone(
-  value: unknown,
-  locale?: any,
-  // locale?: validator.MobilePhoneLocale,
-  options?: any,
-  // options?: validator.IsMobilePhoneOptions
+    value: unknown,
+    locale?: any,
+    // locale?: validator.MobilePhoneLocale,
+    options?: any
+    // options?: validator.IsMobilePhoneOptions
 ): boolean {
-  return (
-    typeof value === "string" &&
-    validator.isMobilePhone(value, locale, options)
-  );
+    return (
+        typeof value === "string" &&
+        validator.isMobilePhone(value, locale, options)
+    );
 }
 
 /**
@@ -42,29 +42,30 @@ export function isMobilePhone(
  * If given value is not a string, then it returns false.
  */
 export function IsMobilePhone(
-  // locale?: validator.MobilePhoneLocale,
-  locale?: any,
-  // options?: validator.IsMobilePhoneOptions,
-  options?: any,
-  validationOptions?: ValidationOptions,
+    // locale?: validator.MobilePhoneLocale,
+    locale?: any,
+    // options?: validator.IsMobilePhoneOptions,
+    options?: any,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: IS_MOBILE_PHONE,
-      constraints: [locale, options],
-      validator: {
-        validate: (value, args) =>
-          isMobilePhone(
-            value,
-            args?.constraints[0],
-            args?.constraints[1],
-          ),
-        defaultMessage: buildMessage(
-          (eachPrefix) => eachPrefix + "$property must be a phone number",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: IS_MOBILE_PHONE,
+            constraints: [locale, options],
+            validator: {
+                validate: (value, args) =>
+                    isMobilePhone(
+                        value,
+                        args?.constraints[0],
+                        args?.constraints[1]
+                    ),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a phone number",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

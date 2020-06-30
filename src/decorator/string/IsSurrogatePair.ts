@@ -9,7 +9,7 @@ export const IS_SURROGATE_PAIR = "isSurrogatePair";
  * If given value is not a string, then it returns false.
  */
 export function isSurrogatePair(value: unknown): boolean {
-  return typeof value === "string" && validator.isSurrogatePair(value);
+    return typeof value === "string" && validator.isSurrogatePair(value);
 }
 
 /**
@@ -17,21 +17,21 @@ export function isSurrogatePair(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsSurrogatePair(
-  validationOptions?: ValidationOptions,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: IS_SURROGATE_PAIR,
-      validator: {
-        validate: (value, args) => isSurrogatePair(value),
-        defaultMessage: buildMessage(
-          (eachPrefix) =>
-            eachPrefix +
-            "$property must contain any surrogate pairs chars",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: IS_SURROGATE_PAIR,
+            validator: {
+                validate: (value, args) => isSurrogatePair(value),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property must contain any surrogate pairs chars",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

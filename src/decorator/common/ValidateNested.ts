@@ -8,22 +8,23 @@ import { getMetadataStorage } from "../../metadata/MetadataStorage.ts";
  * Objects / object arrays marked with this decorator will also be validated.
  */
 export function ValidateNested(
-  validationOptions?: ValidationOptions,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  const opts: ValidationOptions = { ...validationOptions };
-  const eachPrefix = opts.each ? "each value in " : "";
-  opts.message = opts.message ||
-    eachPrefix + "nested property $property must be either object or array";
+    const opts: ValidationOptions = { ...validationOptions };
+    const eachPrefix = opts.each ? "each value in " : "";
+    opts.message =
+        opts.message ||
+        eachPrefix + "nested property $property must be either object or array";
 
-  return function (object, propertyName) {
-    const args: ValidationMetadataArgs = {
-      type: ValidationTypes.NESTED_VALIDATION,
-      target: object.constructor,
-      propertyName: propertyName as string,
-      validationOptions: opts,
+    return function (object, propertyName) {
+        const args: ValidationMetadataArgs = {
+            type: ValidationTypes.NESTED_VALIDATION,
+            target: object.constructor,
+            propertyName: propertyName as string,
+            validationOptions: opts,
+        };
+        getMetadataStorage().addValidationMetadata(
+            new ValidationMetadata(args)
+        );
     };
-    getMetadataStorage().addValidationMetadata(
-      new ValidationMetadata(args),
-    );
-  };
 }

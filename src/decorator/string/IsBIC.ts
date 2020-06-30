@@ -9,7 +9,7 @@ export const IS_BIC = "isBIC";
  * If given value is not a string, then it returns false.
  */
 export function isBIC(value: unknown): boolean {
-  return typeof value === "string" && validator.isBIC(value);
+    return typeof value === "string" && validator.isBIC(value);
 }
 
 /**
@@ -17,19 +17,20 @@ export function isBIC(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsBIC(
-  validationOptions?: ValidationOptions,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: IS_BIC,
-      validator: {
-        validate: (value, args) => isBIC(value),
-        defaultMessage: buildMessage(
-          (eachPrefix) => eachPrefix + "$property must be a BIC or SWIFT code",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: IS_BIC,
+            validator: {
+                validate: (value, args) => isBIC(value),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a BIC or SWIFT code",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

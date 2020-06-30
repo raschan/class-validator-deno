@@ -9,7 +9,7 @@ export const IS_ETHEREUM_ADDRESS = "isEthereumAddress";
  * If given value is not a string, then it returns false.
  */
 export function isEthereumAddress(value: unknown): boolean {
-  return typeof value === "string" && validator.isEthereumAddress(value);
+    return typeof value === "string" && validator.isEthereumAddress(value);
 }
 
 /**
@@ -17,19 +17,20 @@ export function isEthereumAddress(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsEthereumAddress(
-  validationOptions?: ValidationOptions,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: IS_ETHEREUM_ADDRESS,
-      validator: {
-        validate: (value, args) => isEthereumAddress(value),
-        defaultMessage: buildMessage(
-          (eachPrefix) => eachPrefix + "$property must be an Ethereum address",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: IS_ETHEREUM_ADDRESS,
+            validator: {
+                validate: (value, args) => isEthereumAddress(value),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be an Ethereum address",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

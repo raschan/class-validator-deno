@@ -9,7 +9,7 @@ export const IS_VARIABLE_WIDTH = "isVariableWidth";
  * If given value is not a string, then it returns false.
  */
 export function isVariableWidth(value: unknown): boolean {
-  return typeof value === "string" && validator.isVariableWidth(value);
+    return typeof value === "string" && validator.isVariableWidth(value);
 }
 
 /**
@@ -17,21 +17,21 @@ export function isVariableWidth(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsVariableWidth(
-  validationOptions?: ValidationOptions,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: IS_VARIABLE_WIDTH,
-      validator: {
-        validate: (value, args) => isVariableWidth(value),
-        defaultMessage: buildMessage(
-          (eachPrefix) =>
-            eachPrefix +
-            "$property must contain a full-width and half-width characters",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: IS_VARIABLE_WIDTH,
+            validator: {
+                validate: (value, args) => isVariableWidth(value),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property must contain a full-width and half-width characters",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

@@ -9,7 +9,7 @@ export const CONTAINS = "contains";
  * If given value is not a string, then it returns false.
  */
 export function contains(value: unknown, seed: string): boolean {
-  return typeof value === "string" && validator.contains(value, seed);
+    return typeof value === "string" && validator.contains(value, seed);
 }
 
 /**
@@ -17,23 +17,24 @@ export function contains(value: unknown, seed: string): boolean {
  * If given value is not a string, then it returns false.
  */
 export function Contains(
-  seed: string,
-  validationOptions?: ValidationOptions,
+    seed: string,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: CONTAINS,
-      constraints: [seed],
-      validator: {
-        validate: (value, args) => contains(value, args?.constraints[0]),
-        defaultMessage: buildMessage(
-          (eachPrefix) =>
-            eachPrefix +
-            "$property must contain a $constraint1 string",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: CONTAINS,
+            constraints: [seed],
+            validator: {
+                validate: (value, args) =>
+                    contains(value, args?.constraints[0]),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property must contain a $constraint1 string",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

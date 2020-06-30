@@ -19,20 +19,60 @@ import {
 
 import { should, use } from "chai";
 
-import * as chaiAsPromised from "chai-as-promised";
+describe("message", () => {
 
-should();
-use(chaiAsPromised);
+    it("should contain a custom message", () => {
+        class MyClass {
+            @Contains("hello", {
+                message: "String is not valid. You string must contain a hello word"
+            })
+            someProperty: string;
+        }
 
-// -------------------------------------------------------------------------
-// Setup
-// -------------------------------------------------------------------------
+        const model = new MyClass();
+        // TODO: Why is this commented out?
+        // model.someProperty = "hell no world";
+        return validator.validate(model).then(errors => {
+            expect(errors.length).toEqual(1);
+            expect(errors[0].constraints).toEqual({contains: "String is not valid. You string must contain a hello word"});
+        });
+    });
 
-const validator = new Validator();
+    it("$value token should be replaced in a custom message", () => {
+        class MyClass {
+            @Contains("hello", {
+                message: "$value is not valid. You string must contain a hello word"
+            })
+            someProperty: string;
+        }
 
-// -------------------------------------------------------------------------
-// Specifications: common decorators
-// -------------------------------------------------------------------------
+        const model = new MyClass();
+        model.someProperty = "hell no world";
+        return validator.validate(model).then(errors => {
+            expect(errors.length).toEqual(1);
+            expect(errors[0].constraints).toEqual({contains: "hell no world is not valid. You string must contain a hello word"});
+        });
+    });
+
+    it("$value token should be replaced in a custom message", () => {
+        class MyClass {
+            @MinLength(2, {
+                message: args => {
+                    if (args.value.length < 2) {
+                        return "$value is too short, minimum length is $constraint1 characters $property";
+                    }
+                }
+            })
+            name: string;
+        }
+
+        const model = new MyClass();
+        model.name = "";
+        return validator.validate(model).then(errors => {
+            expect(errors.length).toEqual(1);
+            expect(errors[0].constraints).toEqual({minLength: " is too short, minimum length is 2 characters name"});
+        });
+    });
 
 describe("validation options", function () {
   describe("message", function () {

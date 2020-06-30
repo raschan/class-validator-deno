@@ -20,9 +20,9 @@ use(chaiAsPromised);
 
 const validator = new Validator();
 
-// -------------------------------------------------------------------------
-// Specifications: common decorators
-// -------------------------------------------------------------------------
+describe("conditional validation", () => {
+    it("shouldn't validate a property when the condition is false", () => {
+        expect.assertions(1);
 
 describe("conditional validation", function () {
   it("shouldn't validate a property when the condition is false", function () {

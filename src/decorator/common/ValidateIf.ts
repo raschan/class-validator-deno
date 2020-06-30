@@ -8,19 +8,19 @@ import { getMetadataStorage } from "../../metadata/MetadataStorage.ts";
  * Objects / object arrays marked with this decorator will also be validated.
  */
 export function ValidateIf(
-  condition: (object: any, value: any) => boolean,
-  validationOptions?: ValidationOptions,
+    condition: (object: any, value: any) => boolean,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return function (object, propertyName) {
-    const args: ValidationMetadataArgs = {
-      type: ValidationTypes.CONDITIONAL_VALIDATION,
-      target: object.constructor,
-      propertyName: propertyName as string,
-      constraints: [condition],
-      validationOptions: validationOptions,
+    return function (object, propertyName) {
+        const args: ValidationMetadataArgs = {
+            type: ValidationTypes.CONDITIONAL_VALIDATION,
+            target: object.constructor,
+            propertyName: propertyName as string,
+            constraints: [condition],
+            validationOptions: validationOptions,
+        };
+        getMetadataStorage().addValidationMetadata(
+            new ValidationMetadata(args)
+        );
     };
-    getMetadataStorage().addValidationMetadata(
-      new ValidationMetadata(args),
-    );
-  };
 }

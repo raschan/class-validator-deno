@@ -10,11 +10,11 @@ export const IS_HASH = "isHash";
  * 'tiger160', 'tiger192', 'crc32', 'crc32b']
  */
 export function isHash(
-  value: unknown,
-  algorithm: any,
-  // algorithm: validator.HashAlgorithm
+    value: unknown,
+    algorithm: any
+    // algorithm: validator.HashAlgorithm
 ): boolean {
-  return typeof value === "string" && validator.isHash(value, algorithm);
+    return typeof value === "string" && validator.isHash(value, algorithm);
 }
 
 /**
@@ -23,23 +23,23 @@ export function isHash(
  * 'tiger160', 'tiger192', 'crc32', 'crc32b']
  */
 export function IsHash(
-  algorithm: string,
-  validationOptions?: ValidationOptions,
+    algorithm: string,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: IS_HASH,
-      constraints: [algorithm],
-      validator: {
-        validate: (value, args) => isHash(value, args?.constraints[0]),
-        defaultMessage: buildMessage(
-          (eachPrefix) =>
-            eachPrefix +
-            "$property must be a hash of type $constraint1",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: IS_HASH,
+            constraints: [algorithm],
+            validator: {
+                validate: (value, args) => isHash(value, args?.constraints[0]),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property must be a hash of type $constraint1",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

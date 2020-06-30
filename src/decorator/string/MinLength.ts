@@ -9,7 +9,7 @@ export const MIN_LENGTH = "minLength";
  * If given value is not a string, then it returns false.
  */
 export function minLength(value: unknown, min: number) {
-  return typeof value === "string" && validator.isLength(value, { min });
+    return typeof value === "string" && validator.isLength(value, { min });
 }
 
 /**
@@ -17,23 +17,24 @@ export function minLength(value: unknown, min: number) {
  * If given value is not a string, then it returns false.
  */
 export function MinLength(
-  min: number,
-  validationOptions?: ValidationOptions,
+    min: number,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: MIN_LENGTH,
-      constraints: [min],
-      validator: {
-        validate: (value, args) => minLength(value, args?.constraints[0]),
-        defaultMessage: buildMessage(
-          (eachPrefix) =>
-            eachPrefix +
-            "$property must be longer than or equal to $constraint1 characters",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: MIN_LENGTH,
+            constraints: [min],
+            validator: {
+                validate: (value, args) =>
+                    minLength(value, args?.constraints[0]),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property must be longer than or equal to $constraint1 characters",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

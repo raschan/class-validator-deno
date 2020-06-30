@@ -8,9 +8,9 @@ export const ARRAY_CONTAINS = "arrayContains";
  * If null or undefined is given then this function returns false.
  */
 export function arrayContains(array: unknown, values: any[]) {
-  if (!(array instanceof Array)) return false;
+    if (!(array instanceof Array)) return false;
 
-  return values.every((value) => array.indexOf(value) !== -1);
+    return values.every((value) => array.indexOf(value) !== -1);
 }
 
 /**
@@ -18,23 +18,24 @@ export function arrayContains(array: unknown, values: any[]) {
  * If null or undefined is given then this function returns false.
  */
 export function ArrayContains(
-  values: any[],
-  validationOptions?: ValidationOptions,
+    values: any[],
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: ARRAY_CONTAINS,
-      constraints: [values],
-      validator: {
-        validate: (value, args) => arrayContains(value, args?.constraints[0]),
-        defaultMessage: buildMessage(
-          (eachPrefix) =>
-            eachPrefix +
-            "$property must contain $constraint1 values",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: ARRAY_CONTAINS,
+            constraints: [values],
+            validator: {
+                validate: (value, args) =>
+                    arrayContains(value, args?.constraints[0]),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property must contain $constraint1 values",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

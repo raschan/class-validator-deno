@@ -8,17 +8,17 @@ import { getMetadataStorage } from "../../metadata/MetadataStorage.ts";
  * Resolve promise before validation
  */
 export function ValidatePromise(
-  validationOptions?: ValidationOptions,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return function (object, propertyName) {
-    const args: ValidationMetadataArgs = {
-      type: ValidationTypes.PROMISE_VALIDATION,
-      target: object.constructor,
-      propertyName: propertyName as string,
-      validationOptions: validationOptions,
+    return function (object, propertyName) {
+        const args: ValidationMetadataArgs = {
+            type: ValidationTypes.PROMISE_VALIDATION,
+            target: object.constructor,
+            propertyName: propertyName as string,
+            validationOptions: validationOptions,
+        };
+        getMetadataStorage().addValidationMetadata(
+            new ValidationMetadata(args)
+        );
     };
-    getMetadataStorage().addValidationMetadata(
-      new ValidationMetadata(args),
-    );
-  };
 }

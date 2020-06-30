@@ -10,7 +10,7 @@ export const IS_HSL = "isHSL";
  * If given value is not a string, then it returns false.
  */
 export function isHSL(value: unknown): boolean {
-  return typeof value === "string" && validator.isHSL(value);
+    return typeof value === "string" && validator.isHSL(value);
 }
 
 /**
@@ -19,19 +19,20 @@ export function isHSL(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsHSL(
-  validationOptions?: ValidationOptions,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: IS_HSL,
-      validator: {
-        validate: (value, args) => isHSL(value),
-        defaultMessage: buildMessage(
-          (eachPrefix) => eachPrefix + "$property must be a HSL color",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: IS_HSL,
+            validator: {
+                validate: (value, args) => isHSL(value),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a HSL color",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

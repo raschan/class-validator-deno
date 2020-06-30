@@ -88,6 +88,7 @@ describe("custom decorators", function () {
         errors.length.should.be.equal(0);
       });
     });
+});
 
     it("if firstName is empty and lastLame is not empty then it should fail", function () {
       const model = new MyClass();

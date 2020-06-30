@@ -9,7 +9,7 @@ export const IS_BTC_ADDRESS = "isBtcAddress";
  * If given value is not a string, then it returns false.
  */
 export function isBtcAddress(value: unknown): boolean {
-  return typeof value === "string" && validator.isBtcAddress(value);
+    return typeof value === "string" && validator.isBtcAddress(value);
 }
 
 /**
@@ -17,19 +17,20 @@ export function isBtcAddress(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsBtcAddress(
-  validationOptions?: ValidationOptions,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: IS_BTC_ADDRESS,
-      validator: {
-        validate: (value, args) => isBtcAddress(value),
-        defaultMessage: buildMessage(
-          (eachPrefix) => eachPrefix + "$property must be a BTC address",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: IS_BTC_ADDRESS,
+            validator: {
+                validate: (value, args) => isBtcAddress(value),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a BTC address",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }

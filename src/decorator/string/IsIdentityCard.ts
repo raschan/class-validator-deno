@@ -11,13 +11,13 @@ export const IS_IDENTITY_CARD = "isIdentityCard";
  * If given value is not a string, then it returns false.
  */
 export function isIdentityCard(
-  value: unknown,
-  locale: any,
-  // locale: ValidatorJS.IdentityCardLocale
+    value: unknown,
+    locale: any
+    // locale: ValidatorJS.IdentityCardLocale
 ): boolean {
-  return (
-    typeof value === "string" && ValidatorJS.isIdentityCard(value, locale)
-  );
+    return (
+        typeof value === "string" && ValidatorJS.isIdentityCard(value, locale)
+    );
 }
 
 /**
@@ -27,23 +27,24 @@ export function isIdentityCard(
  * If given value is not a string, then it returns false.
  */
 export function IsIdentityCard(
-  // locale?: ValidatorJS.IdentityCardLocale,
-  locale?: any,
-  validationOptions?: ValidationOptions,
+    // locale?: ValidatorJS.IdentityCardLocale,
+    locale?: any,
+    validationOptions?: ValidationOptions
 ): PropertyDecorator {
-  return ValidateBy(
-    {
-      name: IS_IDENTITY_CARD,
-      constraints: [locale],
-      validator: {
-        validate: (value, args) => isIdentityCard(value, args?.constraints[0]),
-        defaultMessage: buildMessage(
-          (eachPrefix) =>
-            eachPrefix + "$property must be a identity card number",
-          validationOptions,
-        ),
-      },
-    },
-    validationOptions,
-  );
+    return ValidateBy(
+        {
+            name: IS_IDENTITY_CARD,
+            constraints: [locale],
+            validator: {
+                validate: (value, args) =>
+                    isIdentityCard(value, args?.constraints[0]),
+                defaultMessage: buildMessage(
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a identity card number",
+                    validationOptions
+                ),
+            },
+        },
+        validationOptions
+    );
 }
