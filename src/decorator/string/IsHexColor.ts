@@ -9,7 +9,7 @@ export const IS_HEX_COLOR = "isHexColor";
  * If given value is not a string, then it returns false.
  */
 export function isHexColor(value: unknown): boolean {
-    return typeof value === "string" && validator.isHexColor(value);
+  return typeof value === "string" && validator.isHexColor(value);
 }
 
 /**
@@ -17,20 +17,19 @@ export function isHexColor(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsHexColor(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_HEX_COLOR,
-            validator: {
-                validate: (value, args) => isHexColor(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be a hexadecimal color",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_HEX_COLOR,
+      validator: {
+        validate: (value, args) => isHexColor(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be a hexadecimal color",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

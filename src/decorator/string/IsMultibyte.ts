@@ -9,7 +9,7 @@ export const IS_MULTIBYTE = "isMultibyte";
  * If given value is not a string, then it returns false.
  */
 export function isMultibyte(value: unknown): boolean {
-    return typeof value === "string" && validator.isMultibyte(value);
+  return typeof value === "string" && validator.isMultibyte(value);
 }
 
 /**
@@ -17,21 +17,21 @@ export function isMultibyte(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsMultibyte(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_MULTIBYTE,
-            validator: {
-                validate: (value, args) => isMultibyte(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix +
-                        "$property must contain one or more multibyte chars",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_MULTIBYTE,
+      validator: {
+        validate: (value, args) => isMultibyte(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) =>
+            eachPrefix +
+            "$property must contain one or more multibyte chars",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

@@ -11,8 +11,8 @@ export const IS_IP = "isIp";
  * If given value is not a string, then it returns false.
  */
 export function isIP(value: unknown, version?: IsIpVersion): boolean {
-    const versionStr = version ? (`${version}` as "4" | "6") : undefined;
-    return typeof value === "string" && ValidatorJS.isIP(value, versionStr);
+  const versionStr = version ? (`${version}` as "4" | "6") : undefined;
+  return typeof value === "string" && ValidatorJS.isIP(value, versionStr);
 }
 
 /**
@@ -20,22 +20,21 @@ export function isIP(value: unknown, version?: IsIpVersion): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsIP(
-    version?: IsIpVersion,
-    validationOptions?: ValidationOptions
+  version?: IsIpVersion,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_IP,
-            constraints: [version],
-            validator: {
-                validate: (value, args) => isIP(value, args?.constraints[0]),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be an ip address",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_IP,
+      constraints: [version],
+      validator: {
+        validate: (value, args) => isIP(value, args?.constraints[0]),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be an ip address",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

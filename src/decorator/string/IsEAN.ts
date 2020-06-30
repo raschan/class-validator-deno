@@ -9,7 +9,7 @@ export const IS_EAN = "isEAN";
  * If given value is not a string, then it returns false.
  */
 export function isEAN(value: unknown): boolean {
-    return typeof value === "string" && validator.isEAN(value);
+  return typeof value === "string" && validator.isEAN(value);
 }
 
 /**
@@ -17,21 +17,21 @@ export function isEAN(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsEAN(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_EAN,
-            validator: {
-                validate: (value, args) => isEAN(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix +
-                        "$property must be an EAN (European Article Number)",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_EAN,
+      validator: {
+        validate: (value, args) => isEAN(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) =>
+            eachPrefix +
+            "$property must be an EAN (European Article Number)",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

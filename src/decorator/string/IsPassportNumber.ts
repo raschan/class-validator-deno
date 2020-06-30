@@ -9,10 +9,10 @@ export const IS_PASSPORT_NUMBER = "isPassportNumber";
  * If given value is not a string, then it returns false.
  */
 export function isPassportNumber(value: unknown, countryCode: string): boolean {
-    return (
-        typeof value === "string" &&
-        validator.isPassportNumber(value, countryCode)
-    );
+  return (
+    typeof value === "string" &&
+    validator.isPassportNumber(value, countryCode)
+  );
 }
 
 /**
@@ -20,23 +20,23 @@ export function isPassportNumber(value: unknown, countryCode: string): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsPassportNumber(
-    countryCode: string,
-    validationOptions?: ValidationOptions
+  countryCode: string,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_PASSPORT_NUMBER,
-            constraints: [countryCode],
-            validator: {
-                validate: (value, args) =>
-                    isPassportNumber(value, args?.constraints[0]),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be valid passport number",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_PASSPORT_NUMBER,
+      constraints: [countryCode],
+      validator: {
+        validate: (value, args) =>
+          isPassportNumber(value, args?.constraints[0]),
+        defaultMessage: buildMessage(
+          (eachPrefix) =>
+            eachPrefix + "$property must be valid passport number",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

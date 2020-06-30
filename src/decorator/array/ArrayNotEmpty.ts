@@ -8,7 +8,7 @@ export const ARRAY_NOT_EMPTY = "arrayNotEmpty";
  * If null or undefined is given then this function returns false.
  */
 export function arrayNotEmpty(array: unknown) {
-    return array instanceof Array && array.length > 0;
+  return array instanceof Array && array.length > 0;
 }
 
 /**
@@ -16,20 +16,19 @@ export function arrayNotEmpty(array: unknown) {
  * If null or undefined is given then this function returns false.
  */
 export function ArrayNotEmpty(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: ARRAY_NOT_EMPTY,
-            validator: {
-                validate: (value, args) => arrayNotEmpty(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property should not be empty",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: ARRAY_NOT_EMPTY,
+      validator: {
+        validate: (value, args) => arrayNotEmpty(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property should not be empty",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

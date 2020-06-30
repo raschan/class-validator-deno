@@ -9,11 +9,11 @@ export const IS_CURRENCY = "isCurrency";
  * If given value is not a string, then it returns false.
  */
 export function isCurrency(
-    value: unknown,
-    options?: any
-    // options?: any | validator.IsCurrencyOptions
+  value: unknown,
+  options?: any,
+  // options?: any | validator.IsCurrencyOptions
 ): boolean {
-    return typeof value === "string" && validator.isCurrency(value, options);
+  return typeof value === "string" && validator.isCurrency(value, options);
 }
 
 /**
@@ -21,23 +21,22 @@ export function isCurrency(
  * If given value is not a string, then it returns false.
  */
 export function IsCurrency(
-    // options?: validator.IsCurrencyOptions,
-    options?: any,
-    validationOptions?: ValidationOptions
+  // options?: validator.IsCurrencyOptions,
+  options?: any,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_CURRENCY,
-            constraints: [options],
-            validator: {
-                validate: (value, args) =>
-                    isCurrency(value, args?.constraints[0]),
-                defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be a currency",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_CURRENCY,
+      constraints: [options],
+      validator: {
+        validate: (value, args) => isCurrency(value, args?.constraints[0]),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be a currency",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

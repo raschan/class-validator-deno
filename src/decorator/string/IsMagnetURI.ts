@@ -9,7 +9,7 @@ export const IS_MAGNET_URI = "isMagnetURI";
  * If given value is not a string, then it returns false.
  */
 export function isMagnetURI(value: unknown): boolean {
-    return typeof value === "string" && validator.isMagnetURI(value);
+  return typeof value === "string" && validator.isMagnetURI(value);
 }
 
 /**
@@ -17,20 +17,19 @@ export function isMagnetURI(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsMagnetURI(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_MAGNET_URI,
-            validator: {
-                validate: (value, args) => isMagnetURI(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be magnet uri format",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_MAGNET_URI,
+      validator: {
+        validate: (value, args) => isMagnetURI(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be magnet uri format",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

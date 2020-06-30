@@ -11,9 +11,9 @@ export const IS_UUID = "isUuid";
  * If given value is not a string, then it returns false.
  */
 export function isUUID(value: unknown, version?: UUIDVersion): boolean {
-    return (
-        typeof value === "string" && validator.isUUID(value, version as string)
-    );
+  return (
+    typeof value === "string" && validator.isUUID(value, version as string)
+  );
 }
 
 /**
@@ -21,21 +21,21 @@ export function isUUID(value: unknown, version?: UUIDVersion): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsUUID(
-    version?: UUIDVersion,
-    validationOptions?: ValidationOptions
+  version?: UUIDVersion,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_UUID,
-            constraints: [version],
-            validator: {
-                validate: (value, args) => isUUID(value, args?.constraints[0]),
-                defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be an UUID",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_UUID,
+      constraints: [version],
+      validator: {
+        validate: (value, args) => isUUID(value, args?.constraints[0]),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be an UUID",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

@@ -9,11 +9,11 @@ export const IS_ALPHA = "isAlpha";
  * If given value is not a string, then it returns false.
  */
 export function isAlpha(
-    value: unknown,
-    // locale?: ValidatorJS.AlphaLocale
-    locale?: any
+  value: unknown,
+  // locale?: ValidatorJS.AlphaLocale
+  locale?: any,
 ): boolean {
-    return typeof value === "string" && ValidatorJS.isAlpha(value, locale);
+  return typeof value === "string" && ValidatorJS.isAlpha(value, locale);
 }
 
 /**
@@ -21,23 +21,23 @@ export function isAlpha(
  * If given value is not a string, then it returns false.
  */
 export function IsAlpha(
-    locale?: string,
-    validationOptions?: ValidationOptions
+  locale?: string,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_ALPHA,
-            constraints: [locale],
-            validator: {
-                validate: (value, args) => isAlpha(value, args?.constraints[0]),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix +
-                        "$property must contain only letters (a-zA-Z)",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_ALPHA,
+      constraints: [locale],
+      validator: {
+        validate: (value, args) => isAlpha(value, args?.constraints[0]),
+        defaultMessage: buildMessage(
+          (eachPrefix) =>
+            eachPrefix +
+            "$property must contain only letters (a-zA-Z)",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

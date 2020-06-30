@@ -9,7 +9,7 @@ export const IS_MONGO_ID = "isMongoId";
  * If given value is not a string, then it returns false.
  */
 export function isMongoId(value: unknown): boolean {
-    return typeof value === "string" && validator.isMongoId(value);
+  return typeof value === "string" && validator.isMongoId(value);
 }
 
 /**
@@ -17,20 +17,19 @@ export function isMongoId(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsMongoId(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_MONGO_ID,
-            validator: {
-                validate: (value, args) => isMongoId(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be a mongodb id",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_MONGO_ID,
+      validator: {
+        validate: (value, args) => isMongoId(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be a mongodb id",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }
