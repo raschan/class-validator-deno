@@ -86,7 +86,7 @@ export * from "./string/MaxLength.ts";
 export * from "./string/MinLength.ts";
 export * from "./string/Matches.ts";
 // export * from "./string/IsPhoneNumber.ts";
-export * from "./string/IsMilitaryTime.ts";
+// export * from "./string/IsMilitaryTime.ts";
 export * from "./string/IsHash.ts";
 export * from "./string/IsISSN.ts";
 export * from "./string/IsDateString.ts";
