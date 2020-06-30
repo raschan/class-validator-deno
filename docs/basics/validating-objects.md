@@ -1,10 +1,19 @@
 # Validating objects
 
 ```ts
-import { validate, validateOrReject, IsString, IsInt, IsDate, MaxLength, Min, Max, ValidationError} from "class-validator";
+import {
+  validate,
+  validateOrReject,
+  IsString,
+  IsInt,
+  IsDate,
+  MaxLength,
+  Min,
+  Max,
+  ValidationError,
+} from "class-validator/mod.ts";
 
 export class Book {
-
   @IsString()
   @MaxLength(255)
   title: string;
@@ -20,12 +29,11 @@ export class Book {
 
   @IsDate()
   publishDate: Date;
-
 }
 
 const book = new Book();
-book.title = 'Don Quixote';
-book.author = 'Miguel De Cervantes';
+book.title = "Don Quixote";
+book.author = "Miguel De Cervantes";
 book.rating = 11;
 book.publishDate = new Date();
 
@@ -45,9 +53,10 @@ async function awaitExample() {
   try {
     await validateOrReject(book);
   } catch (errors) {
-    console.warn("Async validateOrReject() - Validation failed. Errors: ", errors);
+    console.warn(
+      "Async validateOrReject() - Validation failed. Errors: ",
+      errors,
+    );
   }
 }
 ```
-
-Run this example on [Stackblitz](https://stackblitz.com/edit/class-validator-simple-example-u9h1ve?file=index.ts)
