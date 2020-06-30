@@ -9,7 +9,7 @@ export const IS_JSON = "isJson";
  * If given value is not a string, then it returns false.
  */
 export function isJSON(value: unknown): boolean {
-    return typeof value === "string" && validator.isJSON(value);
+  return typeof value === "string" && validator.isJSON(value);
 }
 
 /**
@@ -17,20 +17,19 @@ export function isJSON(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsJSON(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_JSON,
-            validator: {
-                validate: (value, args) => isJSON(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be a json string",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_JSON,
+      validator: {
+        validate: (value, args) => isJSON(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be a json string",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

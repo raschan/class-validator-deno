@@ -9,7 +9,7 @@ export const IS_BOOLEAN_STRING = "isBooleanString";
  * If given value is not a string, then it returns false.
  */
 export function isBooleanString(value: unknown): boolean {
-    return typeof value === "string" && validator.isBoolean(value);
+  return typeof value === "string" && validator.isBoolean(value);
 }
 
 /**
@@ -17,20 +17,19 @@ export function isBooleanString(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsBooleanString(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_BOOLEAN_STRING,
-            validator: {
-                validate: (value, args) => isBooleanString(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be a boolean string",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_BOOLEAN_STRING,
+      validator: {
+        validate: (value, args) => isBooleanString(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be a boolean string",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

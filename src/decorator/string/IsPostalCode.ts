@@ -10,11 +10,11 @@ export const IS_POSTAL_CODE = "isPostalCode";
  * If given value is not a string, then it returns false.
  */
 export function isPostalCode(
-    value: unknown,
-    locale: any
-    // locale: validator.PostalCodeLocale
+  value: unknown,
+  locale: any,
+  // locale: validator.PostalCodeLocale
 ): boolean {
-    return typeof value === "string" && validator.isPostalCode(value, locale);
+  return typeof value === "string" && validator.isPostalCode(value, locale);
 }
 
 /**
@@ -23,24 +23,22 @@ export function isPostalCode(
  * If given value is not a string, then it returns false.
  */
 export function IsPostalCode(
-    // locale?: validator.PostalCodeLocale,
-    locale?: any,
-    validationOptions?: ValidationOptions
+  // locale?: validator.PostalCodeLocale,
+  locale?: any,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_POSTAL_CODE,
-            constraints: [locale],
-            validator: {
-                validate: (value, args) =>
-                    isPostalCode(value, args?.constraints[0]),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be a postal code",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_POSTAL_CODE,
+      constraints: [locale],
+      validator: {
+        validate: (value, args) => isPostalCode(value, args?.constraints[0]),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be a postal code",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

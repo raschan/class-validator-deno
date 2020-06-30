@@ -10,13 +10,13 @@ export const IS_RGB_COLOR = "isRgbColor";
  * If given value is not a string, then it returns false.
  */
 export function isRgbColor(
-    value: unknown,
-    includePercentValues?: boolean
+  value: unknown,
+  includePercentValues?: boolean,
 ): boolean {
-    return (
-        typeof value === "string" &&
-        validator.isRgbColor(value, includePercentValues)
-    );
+  return (
+    typeof value === "string" &&
+    validator.isRgbColor(value, includePercentValues)
+  );
 }
 
 /**
@@ -25,22 +25,21 @@ export function isRgbColor(
  * If given value is not a string, then it returns false.
  */
 export function IsRgbColor(
-    includePercentValues?: boolean,
-    validationOptions?: ValidationOptions
+  includePercentValues?: boolean,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_RGB_COLOR,
-            constraints: [includePercentValues],
-            validator: {
-                validate: (value, args) =>
-                    isRgbColor(value, args?.constraints[0]),
-                defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be RGB color",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_RGB_COLOR,
+      constraints: [includePercentValues],
+      validator: {
+        validate: (value, args) => isRgbColor(value, args?.constraints[0]),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be RGB color",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

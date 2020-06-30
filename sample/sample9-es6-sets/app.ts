@@ -1,6 +1,6 @@
-import {Validator} from "../../src/validation/Validator";
-import {Post} from "./Post";
-import {Tag} from "./Tag";
+import { Validator } from "../../src/validation/Validator";
+import { Post } from "./Post";
+import { Tag } from "./Tag";
 
 let validator = new Validator();
 
@@ -16,6 +16,6 @@ post1.tags = new Set();
 post1.tags.add(tag1);
 post1.tags.add(tag2);
 
-validator.validate(post1).then(result => {
-    console.log("1. should not pass: ", result);
+validator.validate(post1).then((result) => {
+  console.log("1. should not pass: ", result);
 });

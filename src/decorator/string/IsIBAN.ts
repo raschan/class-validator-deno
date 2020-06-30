@@ -9,7 +9,7 @@ export const IS_IBAN = "isIBAN";
  * If given value is not a string, then it returns false.
  */
 export function isIBAN(value: unknown): boolean {
-    return typeof value === "string" && validator.isIBAN(value);
+  return typeof value === "string" && validator.isIBAN(value);
 }
 
 /**
@@ -17,19 +17,19 @@ export function isIBAN(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsIBAN(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_IBAN,
-            validator: {
-                validate: (value, args) => isIBAN(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be an IBAN",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_IBAN,
+      validator: {
+        validate: (value, args) => isIBAN(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be an IBAN",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

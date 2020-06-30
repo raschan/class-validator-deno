@@ -10,19 +10,19 @@ export const MATCHES = "matches";
  */
 export function matches(value: string, pattern: RegExp): boolean;
 export function matches(
-    value: string,
-    pattern: string,
-    modifiers: string
+  value: string,
+  pattern: string,
+  modifiers: string,
 ): boolean;
 export function matches(
-    value: string,
-    pattern: RegExp | string,
-    modifiers?: string
+  value: string,
+  pattern: RegExp | string,
+  modifiers?: string,
 ): boolean {
-    return (
-        typeof value === "string" &&
-        validator.matches(value, (pattern as unknown) as any, modifiers)
-    );
+  return (
+    typeof value === "string" &&
+    validator.matches(value, (pattern as unknown) as any, modifiers)
+  );
 }
 
 /**
@@ -30,46 +30,46 @@ export function matches(
  * If given value is not a string, then it returns false.
  */
 export function Matches(
-    pattern: RegExp,
-    validationOptions?: ValidationOptions
+  pattern: RegExp,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator;
 export function Matches(
-    pattern: string,
-    modifiers?: string,
-    validationOptions?: ValidationOptions
+  pattern: string,
+  modifiers?: string,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator;
 export function Matches(
-    pattern: RegExp | string,
-    modifiersOrAnnotationOptions?: string | ValidationOptions,
-    validationOptions?: ValidationOptions
+  pattern: RegExp | string,
+  modifiersOrAnnotationOptions?: string | ValidationOptions,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    let modifiers: string | undefined = undefined;
+  let modifiers: string | undefined = undefined;
 
-    if (
-        modifiersOrAnnotationOptions &&
-        modifiersOrAnnotationOptions instanceof Object &&
-        !validationOptions
-    ) {
-        validationOptions = modifiersOrAnnotationOptions as ValidationOptions;
-    } else {
-        modifiers = modifiersOrAnnotationOptions as string;
-    }
+  if (
+    modifiersOrAnnotationOptions &&
+    modifiersOrAnnotationOptions instanceof Object &&
+    !validationOptions
+  ) {
+    validationOptions = modifiersOrAnnotationOptions as ValidationOptions;
+  } else {
+    modifiers = modifiersOrAnnotationOptions as string;
+  }
 
-    return ValidateBy(
-        {
-            name: MATCHES,
-            constraints: [pattern, modifiers],
-            validator: {
-                validate: (value, args) =>
-                    matches(value, args?.constraints[0], args?.constraints[0]),
-                defaultMessage: buildMessage(
-                    (eachPrefix, args) =>
-                        eachPrefix +
-                        "$property must match $constraint1 regular expression",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: MATCHES,
+      constraints: [pattern, modifiers],
+      validator: {
+        validate: (value, args) =>
+          matches(value, args?.constraints[0], args?.constraints[0]),
+        defaultMessage: buildMessage(
+          (eachPrefix, args) =>
+            eachPrefix +
+            "$property must match $constraint1 regular expression",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

@@ -8,7 +8,7 @@ export const IS_LOWERCASE = "isLowercase";
  * If given value is not a string, then it returns false.
  */
 export function isLowercase(value: unknown): boolean {
-    return typeof value === "string" && value.toLocaleLowerCase() === value;
+  return typeof value === "string" && value.toLocaleLowerCase() === value;
 }
 
 /**
@@ -16,20 +16,19 @@ export function isLowercase(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsLowercase(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_LOWERCASE,
-            validator: {
-                validate: (value, args) => isLowercase(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be a lowercase string",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_LOWERCASE,
+      validator: {
+        validate: (value, args) => isLowercase(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be a lowercase string",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

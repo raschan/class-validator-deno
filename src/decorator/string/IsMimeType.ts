@@ -9,7 +9,7 @@ export const IS_MIME_TYPE = "isMimeType";
  * If given value is not a string, then it returns false.
  */
 export function isMimeType(value: unknown): boolean {
-    return typeof value === "string" && validator.isMimeType(value);
+  return typeof value === "string" && validator.isMimeType(value);
 }
 
 /**
@@ -17,20 +17,19 @@ export function isMimeType(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsMimeType(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_MIME_TYPE,
-            validator: {
-                validate: (value, args) => isMimeType(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be MIME type format",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_MIME_TYPE,
+      validator: {
+        validate: (value, args) => isMimeType(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be MIME type format",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

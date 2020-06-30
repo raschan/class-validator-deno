@@ -9,7 +9,7 @@ export const IS_ASCII = "isAscii";
  * If given value is not a string, then it returns false.
  */
 export function isAscii(value: unknown): boolean {
-    return typeof value === "string" && validator.isAscii(value);
+  return typeof value === "string" && validator.isAscii(value);
 }
 
 /**
@@ -17,21 +17,21 @@ export function isAscii(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsAscii(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_ASCII,
-            validator: {
-                validate: (value, args) => isAscii(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix +
-                        "$property must contain only ASCII characters",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_ASCII,
+      validator: {
+        validate: (value, args) => isAscii(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) =>
+            eachPrefix +
+            "$property must contain only ASCII characters",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

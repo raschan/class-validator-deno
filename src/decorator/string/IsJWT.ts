@@ -9,7 +9,7 @@ export const IS_JWT = "isJwt";
  * If given value is not a string, then it returns false.
  */
 export function isJWT(value: unknown): boolean {
-    return typeof value === "string" && validator.isJWT(value);
+  return typeof value === "string" && validator.isJWT(value);
 }
 
 /**
@@ -17,20 +17,19 @@ export function isJWT(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsJWT(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_JWT,
-            validator: {
-                validate: (value, args) => isJWT(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be a jwt string",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_JWT,
+      validator: {
+        validate: (value, args) => isJWT(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be a jwt string",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

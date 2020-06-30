@@ -4,38 +4,38 @@ import { ValidationOptions } from "../decorator/ValidationOptions.ts";
  * Constructor arguments for ValidationMetadata class.
  */
 export interface ValidationMetadataArgs {
-    /**
+  /**
      * Validation type.
      */
-    type: string;
+  type: string;
 
-    /**
+  /**
      * Object that is used to be validated.
      */
-    target: Function | string;
+  target: Function | string;
 
-    /**
+  /**
      * Property of the object to be validated.
      */
-    propertyName: string;
+  propertyName: string;
 
-    /**
+  /**
      * Constraint class that performs validation. Used only for custom validations.
      */
-    constraintCls?: Function;
+  constraintCls?: Function;
 
-    /**
+  /**
      * Array of constraints of this validation.
      */
-    constraints?: any[];
+  constraints?: any[];
 
-    /**
+  /**
      * Validation options.
      */
-    validationOptions?: ValidationOptions;
+  validationOptions?: ValidationOptions;
 
-    /**
+  /**
      * Extra options specific to validation type.
      */
-    validationTypeOptions?: any;
+  validationTypeOptions?: any;
 }

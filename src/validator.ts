@@ -9,10 +9,10 @@ export const version = "1.0.0-beta";
 // validators
 import isAfter from "https://deno.land/x/validator_deno/src/lib/isAfter.ts";
 import isAlpha, {
-    locales as isAlphaLocales,
+  locales as isAlphaLocales,
 } from "https://deno.land/x/validator_deno/src/lib/isAlpha.ts";
 import isAlphanumeric, {
-    locales as isAlphanumericLocales,
+  locales as isAlphanumericLocales,
 } from "https://deno.land/x/validator_deno/src/lib/isAlphanumeric.ts";
 import isAscii from "https://deno.land/x/validator_deno/src/lib/isAscii.ts";
 import isBase32 from "https://deno.land/x/validator_deno/src/lib/isBase32.ts";
@@ -63,7 +63,7 @@ import isMagnetURI from "https://deno.land/x/validator_deno/src/lib/isMagnetURI.
 import isMimeType from "https://deno.land/x/validator_deno/src/lib/isMimeType.ts";
 import isMongoId from "https://deno.land/x/validator_deno/src/lib/isMongoId.ts";
 import isMobilePhone, {
-    locales as mobilePhoneLocales,
+  locales as mobilePhoneLocales,
 } from "https://deno.land/x/validator_deno/src/lib/isMobilePhone.ts";
 import isMultibyte from "https://deno.land/x/validator_deno/src/lib/isMultibyte.ts";
 import isNumeric from "https://deno.land/x/validator_deno/src/lib/isNumeric.ts";
@@ -71,7 +71,7 @@ import isOctal from "https://deno.land/x/validator_deno/src/lib/isOctal.ts";
 import isPassportNumber from "https://deno.land/x/validator_deno/src/lib/isPassportNumber.ts";
 import isPort from "https://deno.land/x/validator_deno/src/lib/isPort.ts";
 import isPostalCode, {
-    locales as postalCodeLocales,
+  locales as postalCodeLocales,
 } from "https://deno.land/x/validator_deno/src/lib/isPostalCode.ts";
 import isRFC3339 from "https://deno.land/x/validator_deno/src/lib/isRFC3339.ts";
 import isRgbColor from "https://deno.land/x/validator_deno/src/lib/isRgbColor.ts";
@@ -86,101 +86,101 @@ import isWhitelisted from "https://deno.land/x/validator_deno/src/lib/isWhitelis
 import matches from "https://deno.land/x/validator_deno/src/lib/matches.ts";
 
 function isLength(str: string, options: any) {
-    let min;
-    let max;
-    if (typeof options === "object") {
-        min = options.min || 0;
-        max = options.max;
-    } else {
-        // backwards compatibility: isLength(str, min [, max])
-        min = arguments[1] || 0;
-        max = arguments[2];
-    }
-    const surrogatePairs = str.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || [];
-    const len = str.length - surrogatePairs.length;
-    return len >= min && (typeof max === "undefined" || len <= max);
+  let min;
+  let max;
+  if (typeof options === "object") {
+    min = options.min || 0;
+    max = options.max;
+  } else {
+    // backwards compatibility: isLength(str, min [, max])
+    min = arguments[1] || 0;
+    max = arguments[2];
+  }
+  const surrogatePairs = str.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || [];
+  const len = str.length - surrogatePairs.length;
+  return len >= min && (typeof max === "undefined" || len <= max);
 }
 
 const validator = {
-    isLength,
-    equals,
-    contains,
-    blacklist,
-    escape,
-    isAfter,
-    isAlpha,
-    isAlphaLocales,
-    isAlphanumeric,
-    isAlphanumericLocales,
-    isAscii,
-    isBase32,
-    isBase64,
-    isBefore,
-    isBIC,
-    isBoolean,
-    isBtcAddress,
-    isByteLength,
-    isCreditCard,
-    isCurrency,
-    isDataURI,
-    isDate,
-    isDecimal,
-    isDivisibleBy,
-    isEAN,
-    isEmail,
-    isEmpty,
-    isEthereumAddress,
-    isFloat,
-    isFQDN,
-    isFullWidth,
-    isHalfWidth,
-    isHash,
-    isHexadecimal,
-    isHexColor,
-    isHSL,
-    isIBAN,
-    isIdentityCard,
-    isIn,
-    isInt,
-    isISIN,
-    isISO31661Alpha2,
-    isISO31661Alpha3,
-    isISO8601,
-    isISBN,
-    isISRC,
-    isISSN,
-    isJSON,
-    isIP,
-    isIPRange,
-    isJWT,
-    isLatLong,
-    isLocale,
-    isLowerCase,
-    isMACAddress,
-    isMagnetURI,
-    isMimeType,
-    isMongoId,
-    isMobilePhone,
-    isMultibyte,
-    isNumeric,
-    isOctal,
-    isPassportNumber,
-    isPort,
-    isPostalCode,
-    isRFC3339,
-    isRgbColor,
-    isSemVer,
-    isSlug,
-    isSurrogatePair,
-    isUpperCase,
-    isURL,
-    isUUID,
-    isVariableWidth,
-    isWhitelisted,
-    matches,
-    mobilePhoneLocales,
-    postalCodeLocales,
-    version,
+  isLength,
+  equals,
+  contains,
+  blacklist,
+  escape,
+  isAfter,
+  isAlpha,
+  isAlphaLocales,
+  isAlphanumeric,
+  isAlphanumericLocales,
+  isAscii,
+  isBase32,
+  isBase64,
+  isBefore,
+  isBIC,
+  isBoolean,
+  isBtcAddress,
+  isByteLength,
+  isCreditCard,
+  isCurrency,
+  isDataURI,
+  isDate,
+  isDecimal,
+  isDivisibleBy,
+  isEAN,
+  isEmail,
+  isEmpty,
+  isEthereumAddress,
+  isFloat,
+  isFQDN,
+  isFullWidth,
+  isHalfWidth,
+  isHash,
+  isHexadecimal,
+  isHexColor,
+  isHSL,
+  isIBAN,
+  isIdentityCard,
+  isIn,
+  isInt,
+  isISIN,
+  isISO31661Alpha2,
+  isISO31661Alpha3,
+  isISO8601,
+  isISBN,
+  isISRC,
+  isISSN,
+  isJSON,
+  isIP,
+  isIPRange,
+  isJWT,
+  isLatLong,
+  isLocale,
+  isLowerCase,
+  isMACAddress,
+  isMagnetURI,
+  isMimeType,
+  isMongoId,
+  isMobilePhone,
+  isMultibyte,
+  isNumeric,
+  isOctal,
+  isPassportNumber,
+  isPort,
+  isPostalCode,
+  isRFC3339,
+  isRgbColor,
+  isSemVer,
+  isSlug,
+  isSurrogatePair,
+  isUpperCase,
+  isURL,
+  isUUID,
+  isVariableWidth,
+  isWhitelisted,
+  matches,
+  mobilePhoneLocales,
+  postalCodeLocales,
+  version,
 };
 
 export default validator;

@@ -9,7 +9,7 @@ export const IS_FULL_WIDTH = "isFullWidth";
  * If given value is not a string, then it returns false.
  */
 export function isFullWidth(value: unknown): boolean {
-    return typeof value === "string" && validator.isFullWidth(value);
+  return typeof value === "string" && validator.isFullWidth(value);
 }
 
 /**
@@ -17,21 +17,21 @@ export function isFullWidth(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsFullWidth(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_FULL_WIDTH,
-            validator: {
-                validate: (value, args) => isFullWidth(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix +
-                        "$property must contain a full-width characters",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_FULL_WIDTH,
+      validator: {
+        validate: (value, args) => isFullWidth(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) =>
+            eachPrefix +
+            "$property must contain a full-width characters",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

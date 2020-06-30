@@ -9,7 +9,7 @@ export const IS_OCTAL = "isOctal";
  * If given value is not a string, then it returns false.
  */
 export function isOctal(value: unknown): boolean {
-    return typeof value === "string" && validator.isOctal(value);
+  return typeof value === "string" && validator.isOctal(value);
 }
 
 /**
@@ -17,20 +17,19 @@ export function isOctal(value: unknown): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsOctal(
-    validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_OCTAL,
-            validator: {
-                validate: (value, args) => isOctal(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) =>
-                        eachPrefix + "$property must be valid octal number",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_OCTAL,
+      validator: {
+        validate: (value, args) => isOctal(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be valid octal number",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

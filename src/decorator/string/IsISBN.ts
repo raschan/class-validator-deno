@@ -11,8 +11,8 @@ export const IS_ISBN = "isIsbn";
  * If given value is not a string, then it returns false.
  */
 export function isISBN(value: unknown, version?: IsISBNVersion): boolean {
-    const versionStr = version ? (`${version}` as "10" | "13") : undefined;
-    return typeof value === "string" && ValidatorJS.isISBN(value, versionStr);
+  const versionStr = version ? (`${version}` as "10" | "13") : undefined;
+  return typeof value === "string" && ValidatorJS.isISBN(value, versionStr);
 }
 
 /**
@@ -20,21 +20,21 @@ export function isISBN(value: unknown, version?: IsISBNVersion): boolean {
  * If given value is not a string, then it returns false.
  */
 export function IsISBN(
-    version?: IsISBNVersion,
-    validationOptions?: ValidationOptions
+  version?: IsISBNVersion,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_ISBN,
-            constraints: [version],
-            validator: {
-                validate: (value, args) => isISBN(value, args?.constraints[0]),
-                defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be an ISBN",
-                    validationOptions
-                ),
-            },
-        },
-        validationOptions
-    );
+  return ValidateBy(
+    {
+      name: IS_ISBN,
+      constraints: [version],
+      validator: {
+        validate: (value, args) => isISBN(value, args?.constraints[0]),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be an ISBN",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }
