@@ -1,11 +1,10 @@
-import {ValidatorConstraintInterface} from "../validation/ValidatorConstraintInterface";
-import {getFromContainer} from "../container";
+import { ValidatorConstraintInterface } from "../validation/ValidatorConstraintInterface.ts";
+import { getFromContainer } from "../container.ts";
 
 /**
  * This metadata interface contains information for custom validators.
  */
 export class ConstraintMetadata {
-
     // -------------------------------------------------------------------------
     // Properties
     // -------------------------------------------------------------------------
@@ -31,7 +30,7 @@ export class ConstraintMetadata {
 
     constructor(target: Function, name?: string, async: boolean = false) {
         this.target = target;
-        this.name = name;
+        this.name = name as string;
         this.async = async;
     }
 
@@ -45,5 +44,4 @@ export class ConstraintMetadata {
     get instance(): ValidatorConstraintInterface {
         return getFromContainer<ValidatorConstraintInterface>(this.target);
     }
-
 }

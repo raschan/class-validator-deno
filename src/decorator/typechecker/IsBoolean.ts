@@ -1,5 +1,5 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
 
 export const IS_BOOLEAN = "isBoolean";
 
@@ -13,17 +13,20 @@ export function isBoolean(value: unknown): boolean {
 /**
  * Checks if a value is a number.
  */
-export function IsBoolean(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsBoolean(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_BOOLEAN,
             validator: {
                 validate: (value, args) => isBoolean(value),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be a boolean value",
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a boolean value",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

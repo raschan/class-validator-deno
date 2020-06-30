@@ -3,7 +3,6 @@
  * Also using validation schemas makes this library to be easily used with es6/es5.
  */
 export interface ValidationSchema {
-
     /**
      * Schema name. This is required, because we tell validator to validate by this schema using its name.
      */
@@ -13,12 +12,10 @@ export interface ValidationSchema {
      * Validated properties.
      */
     properties: {
-
         /**
          * Name of the object's property to be validated which holds an array of validation constraints.
          */
         [propertyName: string]: {
-
             /**
              * Validation type. Should be one of the ValidationTypes value.
              */
@@ -37,7 +34,13 @@ export interface ValidationSchema {
              * Message can be either string, either a function that returns a string.
              * Second option allows to use values and custom messages depend of them.
              */
-            message?: string|((value?: any, constraint1?: any, constraint2?: any) => string);
+            message?:
+                | string
+                | ((
+                      value?: any,
+                      constraint1?: any,
+                      constraint2?: any
+                  ) => string);
 
             /**
              * Specifies if validated value is an array and each of its item must be validated.

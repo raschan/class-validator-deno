@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_VARIABLE_WIDTH = "isVariableWidth";
 
@@ -16,17 +16,21 @@ export function isVariableWidth(value: unknown): boolean {
  * Checks if the string contains variable-width chars.
  * If given value is not a string, then it returns false.
  */
-export function IsVariableWidth(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsVariableWidth(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_VARIABLE_WIDTH,
             validator: {
                 validate: (value, args) => isVariableWidth(value),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must contain a full-width and half-width characters",
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property must contain a full-width and half-width characters",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

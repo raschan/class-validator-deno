@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_LOCALE = "isLocale";
 
@@ -16,7 +16,9 @@ export function isLocale(value: unknown): boolean {
  * Check if the string is a locale.
  * If given value is not a string, then it returns false.
  */
-export function IsLocale(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsLocale(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_LOCALE,
@@ -25,8 +27,8 @@ export function IsLocale(validationOptions?: ValidationOptions): PropertyDecorat
                 defaultMessage: buildMessage(
                     (eachPrefix) => eachPrefix + "$property must be locale",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

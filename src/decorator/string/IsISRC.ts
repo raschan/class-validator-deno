@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_ISRC = "isISRC";
 
@@ -16,7 +16,9 @@ export function isISRC(value: unknown): boolean {
  * Check if the string is a ISRC.
  * If given value is not a string, then it returns false.
  */
-export function IsISRC(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsISRC(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_ISRC,
@@ -25,8 +27,8 @@ export function IsISRC(validationOptions?: ValidationOptions): PropertyDecorator
                 defaultMessage: buildMessage(
                     (eachPrefix) => eachPrefix + "$property must be an ISRC",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const MATCHES = "matches";
 
@@ -9,20 +9,47 @@ export const MATCHES = "matches";
  * If given value is not a string, then it returns false.
  */
 export function matches(value: string, pattern: RegExp): boolean;
-export function matches(value: string, pattern: string, modifiers: string): boolean;
-export function matches(value: string, pattern: RegExp | string, modifiers?: string): boolean {
-    return typeof value === "string" && validator.matches(value, pattern as unknown as any, modifiers);
+export function matches(
+    value: string,
+    pattern: string,
+    modifiers: string
+): boolean;
+export function matches(
+    value: string,
+    pattern: RegExp | string,
+    modifiers?: string
+): boolean {
+    return (
+        typeof value === "string" &&
+        validator.matches(value, (pattern as unknown) as any, modifiers)
+    );
 }
 
 /**
  * Checks if string matches the pattern. Either matches('foo', /foo/i)
  * If given value is not a string, then it returns false.
  */
-export function Matches(pattern: RegExp, validationOptions?: ValidationOptions): PropertyDecorator;
-export function Matches(pattern: string, modifiers?: string, validationOptions?: ValidationOptions): PropertyDecorator;
-export function Matches(pattern: RegExp | string, modifiersOrAnnotationOptions?: string | ValidationOptions, validationOptions?: ValidationOptions): PropertyDecorator {
-    let modifiers: string;
-    if (modifiersOrAnnotationOptions && modifiersOrAnnotationOptions instanceof Object && !validationOptions) {
+export function Matches(
+    pattern: RegExp,
+    validationOptions?: ValidationOptions
+): PropertyDecorator;
+export function Matches(
+    pattern: string,
+    modifiers?: string,
+    validationOptions?: ValidationOptions
+): PropertyDecorator;
+export function Matches(
+    pattern: RegExp | string,
+    modifiersOrAnnotationOptions?: string | ValidationOptions,
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
+    let modifiers: string | undefined = undefined;
+
+    if (
+        modifiersOrAnnotationOptions &&
+        modifiersOrAnnotationOptions instanceof Object &&
+        !validationOptions
+    ) {
         validationOptions = modifiersOrAnnotationOptions as ValidationOptions;
     } else {
         modifiers = modifiersOrAnnotationOptions as string;
@@ -33,12 +60,15 @@ export function Matches(pattern: RegExp | string, modifiersOrAnnotationOptions?:
             name: MATCHES,
             constraints: [pattern, modifiers],
             validator: {
-                validate: (value, args) => matches(value, args.constraints[0], args.constraints[0]),
+                validate: (value, args) =>
+                    matches(value, args?.constraints[0], args?.constraints[0]),
                 defaultMessage: buildMessage(
-                    (eachPrefix, args) => eachPrefix + "$property must match $constraint1 regular expression",
+                    (eachPrefix, args) =>
+                        eachPrefix +
+                        "$property must match $constraint1 regular expression",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

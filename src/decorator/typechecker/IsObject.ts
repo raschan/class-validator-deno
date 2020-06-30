@@ -1,5 +1,5 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
 
 export const IS_OBJECT = "isObject";
 
@@ -8,14 +8,20 @@ export const IS_OBJECT = "isObject";
  * Returns false if the value is not an object.
  */
 export function isObject(value: unknown): value is object {
-    return value != null && (typeof value === "object" || typeof value === "function") && !Array.isArray(value);
+    return (
+        value != null &&
+        (typeof value === "object" || typeof value === "function") &&
+        !Array.isArray(value)
+    );
 }
 
 /**
  * Checks if the value is valid Object.
  * Returns false if the value is not an object.
  */
-export function IsObject(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsObject(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_OBJECT,
@@ -24,8 +30,8 @@ export function IsObject(validationOptions?: ValidationOptions): PropertyDecorat
                 defaultMessage: buildMessage(
                     (eachPrefix) => eachPrefix + "$property must be an object",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

@@ -1,5 +1,5 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
 
 export const IS_ARRAY = "isArray";
 
@@ -7,13 +7,15 @@ export const IS_ARRAY = "isArray";
  * Checks if a given value is an array
  */
 export function isArray(value: unknown): boolean {
-    return value instanceof Array;
+    return Array.isArray(value);
 }
 
 /**
  * Checks if a given value is an array
  */
-export function IsArray(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsArray(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_ARRAY,
@@ -22,8 +24,8 @@ export function IsArray(validationOptions?: ValidationOptions): PropertyDecorato
                 defaultMessage: buildMessage(
                     (eachPrefix) => eachPrefix + "$property must be an array",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_BOOLEAN_STRING = "isBooleanString";
 
@@ -16,17 +16,20 @@ export function isBooleanString(value: unknown): boolean {
  * Checks if a string is a boolean.
  * If given value is not a string, then it returns false.
  */
-export function IsBooleanString(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsBooleanString(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_BOOLEAN_STRING,
             validator: {
                 validate: (value, args) => isBooleanString(value),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be a boolean string",
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a boolean string",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

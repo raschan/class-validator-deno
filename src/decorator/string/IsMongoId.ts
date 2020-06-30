@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_MONGO_ID = "isMongoId";
 
@@ -16,17 +16,20 @@ export function isMongoId(value: unknown): boolean {
  * Checks if the string is a valid hex-encoded representation of a MongoDB ObjectId.
  * If given value is not a string, then it returns false.
  */
-export function IsMongoId(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsMongoId(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_MONGO_ID,
             validator: {
                 validate: (value, args) => isMongoId(value),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be a mongodb id",
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a mongodb id",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

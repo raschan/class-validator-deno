@@ -1,5 +1,5 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
 
 export const IS_POSITIVE = "isPositive";
 
@@ -13,17 +13,20 @@ export function isPositive(value: unknown): boolean {
 /**
  * Checks if the value is a positive number greater than zero.
  */
-export function IsPositive(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsPositive(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_POSITIVE,
             validator: {
                 validate: (value, args) => isPositive(value),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be a positive number",
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a positive number",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

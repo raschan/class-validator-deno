@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "./ValidateBy";
-import { ValidationTypes } from "../../validation/ValidationTypes";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "./ValidateBy.ts";
+import { ValidationTypes } from "../../validation/ValidationTypes.ts";
 
 // isDefined is (yet) a special case
 export const IS_DEFINED = ValidationTypes.IS_DEFINED;
@@ -15,17 +15,21 @@ export function isDefined(value: any): boolean {
 /**
  * Checks if value is defined (!== undefined, !== null).
  */
-export function IsDefined(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsDefined(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_DEFINED,
             validator: {
                 validate: (value) => isDefined(value),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property should not be null or undefined",
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property should not be null or undefined",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

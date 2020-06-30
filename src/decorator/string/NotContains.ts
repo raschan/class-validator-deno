@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const NOT_CONTAINS = "notContains";
 
@@ -16,18 +16,24 @@ export function notContains(value: unknown, seed: string): boolean {
  * Checks if the string does not contain the seed.
  * If given value is not a string, then it returns false.
  */
-export function NotContains(seed: string, validationOptions?: ValidationOptions): PropertyDecorator {
+export function NotContains(
+    seed: string,
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: NOT_CONTAINS,
             constraints: [seed],
             validator: {
-                validate: (value, args) => notContains(value, args.constraints[0]),
+                validate: (value, args) =>
+                    notContains(value, args?.constraints[0]),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property should not contain a $constraint1 string",
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property should not contain a $constraint1 string",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

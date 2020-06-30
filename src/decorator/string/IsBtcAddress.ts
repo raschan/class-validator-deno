@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_BTC_ADDRESS = "isBtcAddress";
 
@@ -16,17 +16,20 @@ export function isBtcAddress(value: unknown): boolean {
  * Check if the string is a valid BTC address.
  * If given value is not a string, then it returns false.
  */
-export function IsBtcAddress(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsBtcAddress(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_BTC_ADDRESS,
             validator: {
                 validate: (value, args) => isBtcAddress(value),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be a BTC address",
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a BTC address",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

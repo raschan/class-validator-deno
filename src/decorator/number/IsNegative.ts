@@ -1,5 +1,5 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
 
 export const IS_NEGATIVE = "isNegative";
 
@@ -13,17 +13,20 @@ export function isNegative(value: unknown): boolean {
 /**
  * Checks if the value is a negative number smaller than zero.
  */
-export function IsNegative(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsNegative(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_NEGATIVE,
             validator: {
                 validate: (value, args) => isNegative(value),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be a negative number",
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a negative number",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

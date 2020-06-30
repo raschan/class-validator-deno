@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_JWT = "isJwt";
 
@@ -16,17 +16,20 @@ export function isJWT(value: unknown): boolean {
  * Checks if the string is valid JWT token.
  * If given value is not a string, then it returns false.
  */
-export function IsJWT(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsJWT(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_JWT,
             validator: {
                 validate: (value, args) => isJWT(value),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be a jwt string",
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a jwt string",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

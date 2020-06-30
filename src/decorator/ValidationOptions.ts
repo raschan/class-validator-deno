@@ -1,10 +1,9 @@
-import { ValidationArguments } from "../validation/ValidationArguments";
+import { ValidationArguments } from "../validation/ValidationArguments.ts";
 
 /**
  * Options used to pass to validation decorators.
  */
 export interface ValidationOptions {
-
     /**
      * Specifies if validated value is an array and each of its items must be validated.
      */
@@ -32,14 +31,15 @@ export interface ValidationOptions {
     context?: any;
 }
 
-
 export function isValidationOptions(val: any): val is ValidationOptions {
     if (!val) {
         return false;
     }
-    return "each" in val
-        || "message" in val
-        || "groups" in val
-        || "always" in val
-        || "context" in val;
+    return (
+        "each" in val ||
+        "message" in val ||
+        "groups" in val ||
+        "always" in val ||
+        "context" in val
+    );
 }

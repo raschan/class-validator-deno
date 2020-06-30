@@ -1,7 +1,7 @@
-import {ValidationMetadata} from "./ValidationMetadata";
-import {ConstraintMetadata} from "./ConstraintMetadata";
-import {ValidationSchema} from "../validation-schema/ValidationSchema";
-import {ValidationSchemaToMetadataTransformer} from "../validation-schema/ValidationSchemaToMetadataTransformer";
+import { ValidationMetadata } from "./ValidationMetadata.ts";
+import { ConstraintMetadata } from "./ConstraintMetadata.ts";
+import { ValidationSchema } from "../validation-schema/ValidationSchema.ts";
+import { ValidationSchemaToMetadataTransformer } from "../validation-schema/ValidationSchemaToMetadataTransformer.ts";
 
 /**
  * Gets metadata storage.
@@ -11,17 +11,16 @@ export function getMetadataStorage(): MetadataStorage {
     if (typeof window !== "undefined") {
         (window as any).global = window;
     }
-    if (!(global as any).classValidatorMetadataStorage)
-        (global as any).classValidatorMetadataStorage = new MetadataStorage();
+    if (!(globalThis as any).classValidatorMetadataStorage)
+        (globalThis as any).classValidatorMetadataStorage = new MetadataStorage();
 
-    return (global as any).classValidatorMetadataStorage;
+    return (globalThis as any).classValidatorMetadataStorage;
 }
 
 /**
  * Storage all metadatas.
  */
 export class MetadataStorage {
-
     // -------------------------------------------------------------------------
     // Private properties
     // -------------------------------------------------------------------------
@@ -41,8 +40,12 @@ export class MetadataStorage {
      * Adds a new validation metadata.
      */
     addValidationSchema(schema: ValidationSchema) {
-        const validationMetadatas = new ValidationSchemaToMetadataTransformer().transform(schema);
-        validationMetadatas.forEach(validationMetadata => this.addValidationMetadata(validationMetadata));
+        const validationMetadatas = new ValidationSchemaToMetadataTransformer().transform(
+            schema
+        );
+        validationMetadatas.forEach((validationMetadata) =>
+            this.addValidationMetadata(validationMetadata)
+        );
     }
 
     /**
@@ -62,9 +65,11 @@ export class MetadataStorage {
     /**
      * Groups metadata by their property names.
      */
-    groupByPropertyName(metadata: ValidationMetadata[]): { [propertyName: string]: ValidationMetadata[] } {
+    groupByPropertyName(
+        metadata: ValidationMetadata[]
+    ): { [propertyName: string]: ValidationMetadata[] } {
         const grouped: { [propertyName: string]: ValidationMetadata[] } = {};
-        metadata.forEach(metadata => {
+        metadata.forEach((metadata) => {
             if (!grouped[metadata.propertyName])
                 grouped[metadata.propertyName] = [];
             grouped[metadata.propertyName].push(metadata);
@@ -75,45 +80,71 @@ export class MetadataStorage {
     /**
      * Gets all validation metadatas for the given object with the given groups.
      */
-    getTargetValidationMetadatas(targetConstructor: Function, targetSchema: string, groups?: string[]): ValidationMetadata[] {
-
+    getTargetValidationMetadatas(
+        targetConstructor: Function,
+        targetSchema: string,
+        groups?: string[]
+    ): ValidationMetadata[] {
         // get directly related to a target metadatas
-        const originalMetadatas = this.validationMetadatas.filter(metadata => {
-            if (metadata.target !== targetConstructor && metadata.target !== targetSchema)
-                return false;
-            if (metadata.always)
-                return true;
-            if (groups && groups.length > 0)
-                return metadata.groups && !!metadata.groups.find(group => groups.indexOf(group) !== -1);
+        const originalMetadatas = this.validationMetadatas.filter(
+            (metadata) => {
+                if (
+                    metadata.target !== targetConstructor &&
+                    metadata.target !== targetSchema
+                )
+                    return false;
+                if (metadata.always) return true;
+                if (groups && groups.length > 0)
+                    return (
+                        metadata.groups &&
+                        !!metadata.groups.find(
+                            (group) => groups.indexOf(group) !== -1
+                        )
+                    );
 
-            return true;
-        });
+                return true;
+            }
+        );
 
         // get metadatas for inherited classes
-        const inheritedMetadatas = this.validationMetadatas.filter(metadata => {
-            // if target is a string it's means we validate agains a schema, and there is no inheritance support for schemas
-            if (typeof metadata.target === "string")
-                return false;
-            if (metadata.target === targetConstructor)
-                return false;
-            if (metadata.target instanceof Function &&
-                !(targetConstructor.prototype instanceof (metadata.target as Function)))
-                return false;
-            if (metadata.always)
-                return true;
-            if (groups && groups.length > 0)
-                return metadata.groups && !!metadata.groups.find(group => groups.indexOf(group) !== -1);
+        const inheritedMetadatas = this.validationMetadatas.filter(
+            (metadata) => {
+                // if target is a string it's means we validate agains a schema, and there is no inheritance support for schemas
+                if (typeof metadata.target === "string") return false;
+                if (metadata.target === targetConstructor) return false;
+                if (
+                    metadata.target instanceof Function &&
+                    !(
+                        targetConstructor.prototype instanceof
+                        (metadata.target as Function)
+                    )
+                )
+                    return false;
+                if (metadata.always) return true;
+                if (groups && groups.length > 0)
+                    return (
+                        metadata.groups &&
+                        !!metadata.groups.find(
+                            (group) => groups.indexOf(group) !== -1
+                        )
+                    );
 
-            return true;
-        });
+                return true;
+            }
+        );
 
         // filter out duplicate metadatas, prefer original metadatas instead of inherited metadatas
-        const uniqueInheritedMetadatas = inheritedMetadatas.filter(inheritedMetadata => {
-            return !originalMetadatas.find(originalMetadata => {
-                return  originalMetadata.propertyName === inheritedMetadata.propertyName &&
-                        originalMetadata.type === inheritedMetadata.type;
-            });
-        });
+        const uniqueInheritedMetadatas = inheritedMetadatas.filter(
+            (inheritedMetadata) => {
+                return !originalMetadatas.find((originalMetadata) => {
+                    return (
+                        originalMetadata.propertyName ===
+                            inheritedMetadata.propertyName &&
+                        originalMetadata.type === inheritedMetadata.type
+                    );
+                });
+            }
+        );
 
         return originalMetadatas.concat(uniqueInheritedMetadatas);
     }
@@ -122,7 +153,8 @@ export class MetadataStorage {
      * Gets all validator constraints for the given object.
      */
     getTargetValidatorConstraints(target: Function): ConstraintMetadata[] {
-        return this.constraintMetadatas.filter(metadata => metadata.target === target);
+        return this.constraintMetadatas.filter(
+            (metadata) => metadata.target === target
+        );
     }
-
 }

@@ -1,5 +1,5 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
 
 export const NOT_EQUALS = "notEquals";
 
@@ -13,18 +13,24 @@ export function notEquals(value: unknown, comparison: unknown): boolean {
 /**
  * Checks if value does not match ("!==") the comparison.
  */
-export function NotEquals(comparison: any, validationOptions?: ValidationOptions): PropertyDecorator {
+export function NotEquals(
+    comparison: any,
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: NOT_EQUALS,
             constraints: [comparison],
             validator: {
-                validate: (value, args) => notEquals(value, args.constraints[0]),
+                validate: (value, args) =>
+                    notEquals(value, args?.constraints[0]),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property should not be equal to $constraint1",
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property should not be equal to $constraint1",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

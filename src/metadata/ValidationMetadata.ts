@@ -1,11 +1,10 @@
-import {ValidationMetadataArgs} from "./ValidationMetadataArgs";
-import {ValidationArguments} from "../validation/ValidationArguments";
+import { ValidationMetadataArgs } from "./ValidationMetadataArgs.ts";
+import { ValidationArguments } from "../validation/ValidationArguments.ts";
 
 /**
  * This metadata contains validation rules.
  */
 export class ValidationMetadata {
-
     // -------------------------------------------------------------------------
     // Properties
     // -------------------------------------------------------------------------
@@ -18,7 +17,7 @@ export class ValidationMetadata {
     /**
      * Target class to which this validation is applied.
      */
-    target: Function|string;
+    target: Function | string;
 
     /**
      * Property of the object to be validated.
@@ -38,7 +37,7 @@ export class ValidationMetadata {
     /**
      * Validation message to be shown in the case of error.
      */
-    message: string|((args: ValidationArguments) => string);
+    message?: string | ((args: ValidationArguments) => string);
 
     /**
      * Validation groups used for this validation.
@@ -73,16 +72,15 @@ export class ValidationMetadata {
         this.type = args.type;
         this.target = args.target;
         this.propertyName = args.propertyName;
-        this.constraints = args.constraints;
-        this.constraintCls = args.constraintCls;
+        this.constraints = args.constraints as any[];
+        this.constraintCls = args.constraintCls as Function;
         this.validationTypeOptions = args.validationTypeOptions;
         if (args.validationOptions) {
             this.message = args.validationOptions.message;
-            this.groups = args.validationOptions.groups;
-            this.always = args.validationOptions.always;
-            this.each = args.validationOptions.each;
+            this.groups = args.validationOptions.groups as string[];
+            this.always = args.validationOptions.always as boolean;
+            this.each = args.validationOptions.each as boolean;
             this.context = args.validationOptions.context;
         }
     }
-
 }

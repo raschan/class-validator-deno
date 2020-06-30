@@ -3,7 +3,6 @@
  * either by returning a function that accepts MessageArguments and returns a message string built based on these arguments.
  */
 export interface ValidationArguments {
-
     /**
      * Validating value.
      */
@@ -28,5 +27,4 @@ export interface ValidationArguments {
      * Name of the object's property being validated.
      */
     property: string;
-    
 }

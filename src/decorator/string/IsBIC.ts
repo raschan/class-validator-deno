@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_BIC = "isBIC";
 
@@ -16,17 +16,20 @@ export function isBIC(value: unknown): boolean {
  * Check if a string is a BIC (Bank Identification Code) or SWIFT code.
  * If given value is not a string, then it returns false.
  */
-export function IsBIC(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsBIC(
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_BIC,
             validator: {
                 validate: (value, args) => isBIC(value),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be a BIC or SWIFT code",
+                    (eachPrefix) =>
+                        eachPrefix + "$property must be a BIC or SWIFT code",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );

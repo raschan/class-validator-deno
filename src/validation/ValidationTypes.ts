@@ -2,7 +2,6 @@
  * Validation types.
  */
 export class ValidationTypes {
-
     /* system */
     static CUSTOM_VALIDATION = "customValidation"; // done
     static NESTED_VALIDATION = "nestedValidation"; // done
@@ -15,9 +14,12 @@ export class ValidationTypes {
      * Checks if validation type is valid.
      */
     static isValid(type: string) {
-        return type !== "isValid" &&
+        return (
+            type !== "isValid" &&
             type !== "getMessage" &&
-            Object.keys(this).map(key => (this as any)[key]).indexOf(type) !== -1;
+            Object.keys(this)
+                .map((key) => (this as any)[key])
+                .indexOf(type) !== -1
+        );
     }
-
 }

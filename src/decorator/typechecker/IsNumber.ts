@@ -1,5 +1,5 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
 
 export const IS_NUMBER = "isNumber";
 
@@ -15,22 +15,25 @@ export interface IsNumberOptions {
 /**
  * Checks if a given value is a number.
  */
-export function isNumber(value: unknown, options: IsNumberOptions = {}): boolean {
+export function isNumber(
+    value: unknown,
+    options: IsNumberOptions = {}
+): boolean {
     if (typeof value !== "number") {
         return false;
     }
 
     if (value === Infinity || value === -Infinity) {
-        return options.allowInfinity;
+        return !!options.allowInfinity;
     }
 
     if (Number.isNaN(value)) {
-        return options.allowNaN;
+        return !!options.allowNaN;
     }
 
     if (options.maxDecimalPlaces !== undefined) {
         let decimalPlaces = 0;
-        if ((value % 1) !== 0) {
+        if (value % 1 !== 0) {
             decimalPlaces = value.toString().split(".")[1].length;
         }
         if (decimalPlaces > options.maxDecimalPlaces) {
@@ -44,18 +47,24 @@ export function isNumber(value: unknown, options: IsNumberOptions = {}): boolean
 /**
  * Checks if a value is a number.
  */
-export function IsNumber(options: IsNumberOptions = {}, validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsNumber(
+    options: IsNumberOptions = {},
+    validationOptions?: ValidationOptions
+): PropertyDecorator {
     return ValidateBy(
         {
             name: IS_NUMBER,
             constraints: [options],
             validator: {
-                validate: (value, args) => isNumber(value, args.constraints[0]),
+                validate: (value, args) =>
+                    isNumber(value, args?.constraints[0]),
                 defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be a number conforming to the specified constraints",
+                    (eachPrefix) =>
+                        eachPrefix +
+                        "$property must be a number conforming to the specified constraints",
                     validationOptions
-                )
-            }
+                ),
+            },
         },
         validationOptions
     );
