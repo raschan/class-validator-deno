@@ -47,7 +47,7 @@ export function useContainer(
     options?: UseContainerOptions
 ) {
     userContainer = iocContainer;
-    userContainerOptions = options;
+    userContainerOptions = options ?? userContainerOptions ?? {};
 }
 
 /**

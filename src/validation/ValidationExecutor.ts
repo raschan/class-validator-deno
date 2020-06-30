@@ -192,8 +192,8 @@ export class ValidationExecutor {
                 error.children = this.stripEmptyErrors(error.children);
             }
 
-            if (Object.keys(error.constraints).length === 0) {
-                if (error.children.length === 0) {
+            if (Object.keys(error?.constraints ?? {}).length === 0) {
+                if (error?.children?.length === 0) {
                     return false;
                 } else {
                     delete error.constraints;
@@ -387,6 +387,8 @@ export class ValidationExecutor {
                                         metadata,
                                         customConstraintMetadata
                                     );
+
+                                    error.constraints = error.constraints || {};
                                     error.constraints[type] = message;
                                     if (metadata.context) {
                                         if (!error.contexts) {
@@ -411,6 +413,7 @@ export class ValidationExecutor {
                                     metadata,
                                     customConstraintMetadata
                                 );
+                                error.constraints = error.constraints || {};
                                 error.constraints[type] = message;
                             }
                         }
@@ -427,6 +430,7 @@ export class ValidationExecutor {
                             validationArguments
                         )
                     );
+
                     const validationIsAsync = validatedSubValues.some(
                         (validatedSubValue: boolean | Promise<boolean>) =>
                             isPromise(validatedSubValue)
@@ -456,6 +460,7 @@ export class ValidationExecutor {
                                     metadata,
                                     customConstraintMetadata
                                 );
+                                error.constraints = error.constraints || {};
                                 error.constraints[type] = message;
                                 if (metadata.context) {
                                     if (!error.contexts) {
@@ -476,9 +481,7 @@ export class ValidationExecutor {
                         return;
                     }
 
-                    const validationResult = validatedSubValues.every(
-                        (isValid: boolean) => isValid
-                    );
+                    const validationResult = validatedSubValues.every(Boolean);
                     if (!validationResult) {
                         const [type, message] = this.createValidationError(
                             object,
@@ -486,6 +489,7 @@ export class ValidationExecutor {
                             metadata,
                             customConstraintMetadata
                         );
+                        error.constraints = error.constraints || {};
                         error.constraints[type] = message;
                     }
                 });
@@ -495,7 +499,7 @@ export class ValidationExecutor {
     private nestedValidations(
         value: any,
         metadatas: ValidationMetadata[],
-        errors: ValidationError[]
+        errors: ValidationError[] = []
     ) {
         if (value === void 0) {
             return;
@@ -569,7 +573,7 @@ export class ValidationExecutor {
 
                 const type = this.getConstraintType(metadata, customConstraint);
 
-                if (error.constraints[type]) {
+                if (error?.constraints?.[type]) {
                     if (!error.contexts) {
                         error.contexts = {};
                     }

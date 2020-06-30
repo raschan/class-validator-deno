@@ -11,7 +11,7 @@ export function isDivisibleBy(value: unknown, num: number): boolean {
     return (
         typeof value === "number" &&
         typeof num === "number" &&
-        validator.isDivisibleBy(String(value), num)
+        validator.isDivisibleBy(String(value), String(num))
     );
 }
 

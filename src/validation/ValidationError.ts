@@ -31,7 +31,7 @@ export class ValidationError {
     /**
      * Contains all nested validation errors of the property.
      */
-    children: ValidationError[] = [];
+    children?: ValidationError[];
 
     /*
      * A transient set of data passed through to the validation result for response mapping
@@ -66,8 +66,8 @@ export class ValidationError {
                 (this.constraints
                     ? propConstraintFailed(this.property as string)
                     : ``) +
-                this.children
-                    .map((childError) =>
+                this?.children
+                    ?.map((childError) =>
                         childError.toString(shouldDecorate, true, this.property)
                     )
                     .join(``)
@@ -83,15 +83,17 @@ export class ValidationError {
             if (this.constraints) {
                 return propConstraintFailed(formattedProperty);
             } else {
-                return this.children
-                    .map((childError) =>
-                        childError.toString(
-                            shouldDecorate,
-                            true,
-                            `${parentPath}${formattedProperty}`
+                return (
+                    this.children
+                        ?.map?.((childError) =>
+                            childError.toString(
+                                shouldDecorate,
+                                true,
+                                `${parentPath}${formattedProperty}`
+                            )
                         )
-                    )
-                    .join(``);
+                        ?.join(``) ?? ""
+                );
             }
         }
     }
