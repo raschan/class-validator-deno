@@ -1,49 +1,47 @@
-import {ValidatorConstraintInterface} from "../validation/ValidatorConstraintInterface";
-import {getFromContainer} from "../container";
+import { ValidatorConstraintInterface } from "../validation/ValidatorConstraintInterface.ts";
+import { getFromContainer } from "../container.ts";
 
 /**
  * This metadata interface contains information for custom validators.
  */
 export class ConstraintMetadata {
+  // -------------------------------------------------------------------------
+  // Properties
+  // -------------------------------------------------------------------------
 
-    // -------------------------------------------------------------------------
-    // Properties
-    // -------------------------------------------------------------------------
-
-    /**
+  /**
      * Target class which performs validation.
      */
-    target: Function;
+  target: Function;
 
-    /**
+  /**
      * Custom validation's name, that will be used as validation error type.
      */
-    name: string;
+  name: string;
 
-    /**
+  /**
      * Indicates if this validation is asynchronous or not.
      */
-    async: boolean;
+  async: boolean;
 
-    // -------------------------------------------------------------------------
-    // Constructor
-    // -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // Constructor
+  // -------------------------------------------------------------------------
 
-    constructor(target: Function, name?: string, async: boolean = false) {
-        this.target = target;
-        this.name = name;
-        this.async = async;
-    }
+  constructor(target: Function, name?: string, async: boolean = false) {
+    this.target = target;
+    this.name = name as string;
+    this.async = async;
+  }
 
-    // -------------------------------------------------------------------------
-    // Accessors
-    // -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // Accessors
+  // -------------------------------------------------------------------------
 
-    /**
+  /**
      * Instance of the target custom validation class which performs validation.
      */
-    get instance(): ValidatorConstraintInterface {
-        return getFromContainer<ValidatorConstraintInterface>(this.target);
-    }
-
+  get instance(): ValidatorConstraintInterface {
+    return getFromContainer<ValidatorConstraintInterface>(this.target);
+  }
 }

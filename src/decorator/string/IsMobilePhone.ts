@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_MOBILE_PHONE = "isMobilePhone";
 
@@ -16,8 +16,17 @@ export const IS_MOBILE_PHONE = "isMobilePhone";
  * 'zh-HK', 'zh-MO', 'zh-TW']
  * If given value is not a string, then it returns false.
  */
-export function isMobilePhone(value: unknown, locale?: validator.MobilePhoneLocale, options?: validator.IsMobilePhoneOptions): boolean {
-    return typeof value === "string" && validator.isMobilePhone(value, locale, options);
+export function isMobilePhone(
+  value: unknown,
+  locale?: any,
+  // locale?: validator.MobilePhoneLocale,
+  options?: any,
+  // options?: validator.IsMobilePhoneOptions
+): boolean {
+  return (
+    typeof value === "string" &&
+    validator.isMobilePhone(value, locale, options)
+  );
 }
 
 /**
@@ -32,19 +41,30 @@ export function isMobilePhone(value: unknown, locale?: validator.MobilePhoneLoca
  * 'zh-HK', 'zh-MO', 'zh-TW']
  * If given value is not a string, then it returns false.
  */
-export function IsMobilePhone(locale?: validator.MobilePhoneLocale, options?: validator.IsMobilePhoneOptions, validationOptions?: ValidationOptions): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_MOBILE_PHONE,
-            constraints: [locale, options],
-            validator: {
-                validate: (value, args): boolean => isMobilePhone(value, args.constraints[0], args.constraints[1]),
-                defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be a phone number",
-                    validationOptions
-                )
-            }
-        },
-        validationOptions
-    );
+export function IsMobilePhone(
+  // locale?: validator.MobilePhoneLocale,
+  locale?: any,
+  // options?: validator.IsMobilePhoneOptions,
+  options?: any,
+  validationOptions?: ValidationOptions,
+): PropertyDecorator {
+  return ValidateBy(
+    {
+      name: IS_MOBILE_PHONE,
+      constraints: [locale, options],
+      validator: {
+        validate: (value, args) =>
+          isMobilePhone(
+            value,
+            args?.constraints[0],
+            args?.constraints[1],
+          ),
+        defaultMessage: buildMessage(
+          (eachPrefix) => eachPrefix + "$property must be a phone number",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }

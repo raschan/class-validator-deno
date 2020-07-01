@@ -1,6 +1,6 @@
-import { ValidationOptions } from "../ValidationOptions";
-import { buildMessage, ValidateBy } from "../common/ValidateBy";
-import validator from "validator";
+import { ValidationOptions } from "../ValidationOptions.ts";
+import { buildMessage, ValidateBy } from "../common/ValidateBy.ts";
+import validator from "../../validator.ts";
 
 export const IS_ISIN = "isIsin";
 
@@ -9,25 +9,29 @@ export const IS_ISIN = "isIsin";
  * If given value is not a string, then it returns false.
  */
 export function isISIN(value: unknown): boolean {
-    return typeof value === "string" && validator.isISIN(value);
+  return typeof value === "string" && validator.isISIN(value);
 }
 
 /**
  * Checks if the string is an ISIN (stock/security identifier).
  * If given value is not a string, then it returns false.
  */
-export function IsISIN(validationOptions?: ValidationOptions): PropertyDecorator {
-    return ValidateBy(
-        {
-            name: IS_ISIN,
-            validator: {
-                validate: (value, args): boolean => isISIN(value),
-                defaultMessage: buildMessage(
-                    (eachPrefix) => eachPrefix + "$property must be an ISIN (stock/security identifier)",
-                    validationOptions
-                )
-            }
-        },
-        validationOptions
-    );
+export function IsISIN(
+  validationOptions?: ValidationOptions,
+): PropertyDecorator {
+  return ValidateBy(
+    {
+      name: IS_ISIN,
+      validator: {
+        validate: (value, args) => isISIN(value),
+        defaultMessage: buildMessage(
+          (eachPrefix) =>
+            eachPrefix +
+            "$property must be an ISIN (stock/security identifier)",
+          validationOptions,
+        ),
+      },
+    },
+    validationOptions,
+  );
 }
