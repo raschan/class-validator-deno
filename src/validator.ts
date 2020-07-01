@@ -84,6 +84,7 @@ import isUUID from "https://deno.land/x/validator_deno/src/lib/isUUID.ts";
 import isVariableWidth from "https://deno.land/x/validator_deno/src/lib/isVariableWidth.ts";
 import isWhitelisted from "https://deno.land/x/validator_deno/src/lib/isWhitelisted.ts";
 import matches from "https://deno.land/x/validator_deno/src/lib/matches.ts";
+import { IsDecimal } from "./decorator/decorators.ts";
 
 function isLength(str: string, options: any) {
   let min;
