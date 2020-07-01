@@ -3,7 +3,7 @@
 `Deno port of class-validator`
 
 Allows use of decorator and non-decorator based validation.
-Internally uses [validator.js][1] to perform validation.
+Internally uses [validator-deno][1] to perform validation.
 Class-validator works on both browser and node.js platforms.
 
 ## Table of Contents
@@ -38,10 +38,7 @@ Class-validator works on both browser and node.js platforms.
 ## Installation
 
 ```ts
-import {
-  IsString,
-  validate,
-} from "https://github.com/Tnifey/class-validator/raw/master/mod.ts";
+import {} from "https://github.com/Tnifey/class-validator/raw/master/mod.ts";
 ```
 
 ## Usage
@@ -1034,6 +1031,6 @@ There are several extensions that simplify class-validator integration with othe
 
 See information about breaking changes and release notes [here][3].
 
-[1]: https://github.com/chriso/validator.js
+[1]: https://github.com/validatorjs/validator-deno
 [2]: https://github.com/pleerock/typedi
 [3]: CHANGELOG.md

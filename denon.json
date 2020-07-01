@@ -1,0 +1,9 @@
+{
+  "$schema": "https://deno.land/x/denon/schema.json",
+  "scripts": {
+    "test": {
+      "cmd": "deno test -A --unstable --config tsconfig.json",
+      "watch": false
+    }
+  }
+}
