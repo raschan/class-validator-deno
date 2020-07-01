@@ -1,5 +1,5 @@
-import "es6-shim";
-import { expect } from "chai";
+import { Rhum, expect } from "../dep.ts";
+
 import {
   IsBooleanString,
   IsPositive,
@@ -186,18 +186,12 @@ import {
   isPostalCode,
   IsSemVer,
   isSemVer,
-} from "../../src/decorator/decorators";
-import { Validator } from "../../src/validation/Validator";
-import { ValidatorOptions } from "../../src/validation/ValidatorOptions";
+} from "../../src/decorator/decorators.ts";
+import { Validator } from "../../src/validation/Validator.ts";
+import { ValidatorOptions } from "../../src/validation/ValidatorOptions.ts";
 
-import { should, use } from "chai";
-
-import * as chaiAsPromised from "chai-as-promised";
-import ValidatorJS from "validator";
+import ValidatorJS from "../../src/validator.ts";
 import IsDecimalOptions = ValidatorJS.IsDecimalOptions;
-
-should();
-use(chaiAsPromised);
 
 // -------------------------------------------------------------------------
 // Helper functions

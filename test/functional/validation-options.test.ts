@@ -7,17 +7,17 @@ import {
   ValidateNested,
   ValidatorConstraint,
   Validate,
-} from "../../src/decorator/decorators";
-import { Validator } from "../../src/validation/Validator";
+} from "../../src/decorator/decorators.ts";
+import { Validator } from "../../src/validation/Validator.ts";
 import {
   ValidationError,
   ValidatorConstraintInterface,
   ValidationOptions,
   registerDecorator,
   ValidationArguments,
-} from "../../src";
+} from "../../src/index.ts";
 
-import { should, use } from "chai";
+
 
 describe("message", () => {
 
